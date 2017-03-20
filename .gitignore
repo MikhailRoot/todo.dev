@@ -1,0 +1,6 @@
+/.idea
+/node_modules
+/vendor
+/public/photos
+# Created by .ignore support plugin (hsz.mobi)
+/public/test.php

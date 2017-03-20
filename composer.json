@@ -1,0 +1,19 @@
+{
+    "name": "mikhail.root/todo.dev",
+    "description": "Reinveting a wheel with mvc todo app",
+    "authors": [
+        {
+            "name": "Mikhail Durnev",
+            "email": "MikhailD.101@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "intervention/image": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

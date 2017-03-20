@@ -1,0 +1,20 @@
+<div ng-class="vm.stateClass" uib-tooltip="Click to edit">
+    <div class="row">
+        <div class="col-sm-1">
+            <button class="btn btn-primary" ng-click="vm.toggleState($event)" uib-tooltip="{{vm.todo.state<1?'Click to set Finished':'Click to set Unfinished'}}">
+                <i class="fa" ng-class="vm.todo.state<1?'fa-calendar-times-o':'fa-calendar-check-o'"></i>
+            </button>
+        </div>
+        <div class="col-sm-4" ng-if="vm.todo.photo.length>4">
+            <img ng-src="/photos/{{vm.todo.photo}}" class="img-responsive img-thumbnail">
+        </div>
+        <div ng-class="vm.todo.photo.length>4?'col-sm-7':'col-sm-11'">
+            <div class="description well" ng-bind="vm.todo.description"></div>
+            <div class="userinfo panel panel-body">
+                <span>Creator:</span> <b ng-bind="vm.todo.username"></b>
+                <span> - </span>
+                <span>email:</span> <b ng-bind="vm.todo.email"></b>
+            </div>
+        </div>
+    </div>
+</div>

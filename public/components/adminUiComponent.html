@@ -1,0 +1,83 @@
+<div>
+    <div class="panel">
+        <div class="panel-body">
+            <h2 ng-bind="vm.editingIndex<1?'Create new':'Editing'"></h2>
+            <div class="todoCreator">
+                <form id="todoCreator" name="todoCreator">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{ 'has-error' : todoCreator.username.$invalid && !todoCreator.username.$pristine }">
+                                <label for="username">What is your name?</label>
+                                <input id="username" type="text" name="username" ng-model="vm.newTodo.username" class="form-control" required maxlength="254">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{ 'has-error' : todoCreator.email.$invalid && !todoCreator.email.$pristine }">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" ng-model="vm.newTodo.email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group" ng-class="{ 'has-error' : todoCreator.description.$invalid && !todoCreator.description.$pristine }">
+                                <label for="description">Describe your task:</label>
+                                <textarea name="description" id="description" rows="3" class="form-control" ng-model="vm.newTodo.description" maxlength="3000" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" >
+                            <label>Choose image for task (up to 320x240px) or it will be re sized</label>
+                            <input type="file" nv-file-select="" uploader="vm.imageuploader" style="margin: 1em auto;">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     ng-style="{ 'width': vm.imageuploader.progress + '%' }" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <img ng-if="vm.newTodo.photo.length>4" ng-src="/photos/{{vm.newTodo.photo}}" class="img-thumbnail" style="display: block; margin: 1em auto;">
+                            <button class="btn btn-danger" ng-if="vm.newTodo.photo.length>4" ng-click="vm.removePhoto()" style="text-align: center; margin: 1em auto; display: inherit;"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <!--<pre ng-bind="vm.pagination | json"></pre>-->
+            </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-info" ng-click="vm.previewNewTodo()" ng-if="!vm.newTodo.id" uib-tooltip="Preview Todo"><i class="fa fa-vcard"></i></button>
+                        <button class="btn btn-primary" ng-click="vm.createTodo()" uib-tooltip="Save Todo" ng-disabled="todoCreator.$invalid || todoCreator.$pristine"><i class="fa fa-save"></i></button>
+                        <button class="btn btn-warning" ng-click="vm.cancel()"  ng-if="vm.newTodo.preview || vm.newTodo.editing" uib-tooltip="Cancel"><i class="fa fa-close"></i></button>
+                        <button class="btn btn-danger" ng-click="vm.deleteTodo()"  ng-if="vm.newTodo.editing" uib-tooltip="Delete"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button class="btn" ng-click="vm.updateSorting('username');" ng-class="vm.pagination.orderBy.username!=='ASC'&&vm.pagination.orderBy.username!=='DESC'?'btn-default':'btn-success' " >
+                Author
+                <i class="fa" ng-class="vm.pagination.orderBy.username==='ASC'?' fa-sort-asc': vm.pagination.orderBy.username==='DESC'?'fa-sort-desc':'fa-unsorted'"></i>
+            </button>
+            <button class="btn" ng-click="vm.updateSorting('email');" ng-class="vm.pagination.orderBy.email!=='ASC'&&vm.pagination.orderBy.email!=='DESC'?'btn-default':'btn-success' " >
+                Email
+                <i class="fa" ng-class="vm.pagination.orderBy.email==='ASC'?' fa-sort-asc': vm.pagination.orderBy.email==='DESC'?'fa-sort-desc':'fa-unsorted'"></i>
+            </button>
+            <button class="btn" ng-click="vm.updateSorting('state');" ng-class="vm.pagination.orderBy.state!=='ASC'&&vm.pagination.orderBy.state!=='DESC'?'btn-default':'btn-success' " >
+                Status
+                <i class="fa" ng-class="vm.pagination.orderBy.state==='ASC'?' fa-sort-asc': vm.pagination.orderBy.state==='DESC'?'fa-sort-desc':'fa-unsorted'"></i>
+            </button>
+            <button class="btn" ng-click="vm.updateSorting('id');" ng-class="vm.pagination.orderBy.id!=='ASC'&&vm.pagination.orderBy.id!=='DESC'?'btn-default':'btn-success' " >
+                Created
+                <i class="fa" ng-class="vm.pagination.orderBy.id==='ASC'?' fa-sort-asc': vm.pagination.orderBy.id==='DESC'?'fa-sort-desc':'fa-unsorted'"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="todoList" ng-if="vm.todos && vm.todos.length>0">
+        <todo todo="todo" ng-repeat="todo in vm.todos track by todo.id" ng-click="vm.editTodo(todo,$index)" ng-class="todo.editing?'editing':''"></todo>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul uib-pagination total-items="vm.pagination.maxItemsCount" ng-model="vm.pagination.currentPage" ng-change="vm.selectNewPage()" items-per-page="vm.pagination.limit" class="pagination-md" boundary-links="true" rotate="false"></ul>
+        </div>
+    </div>
+
+
+</div>

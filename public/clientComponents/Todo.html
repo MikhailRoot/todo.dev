@@ -1,0 +1,15 @@
+<div ng-class="vm.stateClass">
+    <div class="row">
+        <div class="col-sm-4" ng-if="vm.todo.photo.length>4">
+            <img ng-src="/photos/{{vm.todo.photo}}" class="img-responsive img-thumbnail">
+        </div>
+        <div ng-class="vm.todo.photo.length>4?'col-sm-8':'col-sm-12'">
+            <div class="description well" ng-bind="vm.todo.description"></div>
+            <div class="userinfo panel panel-body">
+                <span>Creator:</span> <b ng-bind="vm.todo.username"></b>
+                <span> - </span>
+                <span>email:</span> <b ng-bind="vm.todo.email"></b>
+            </div>
+        </div>
+    </div>
+</div>
